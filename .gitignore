@@ -4,3 +4,4 @@
 /.gradle/
 /gradle/
 /build/
+hs_err_*.log

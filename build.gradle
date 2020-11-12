@@ -9,19 +9,18 @@ sourceCompatibility = 1.11
 
 project.ext.lwjglVersion = "3.2.3"
 project.ext.jomlVersion = "1.9.25"
-project.ext.lwjglNatives = "natives-macos"
 
 switch (OperatingSystem.current()) {
     case OperatingSystem.LINUX:
-        project.ext.osName = "Linux";
-        break;
-    case OperatingSystem.MAC_OS:
-        project.ext.osName = "macOS";
-        // jvmargs = "-XstartOnFirstThread";
-        break;
+        project.ext.lwjglNatives = 'natives-linux'
+        break
     case OperatingSystem.WINDOWS:
-        project.ext.osName = "Windows";
-        break;
+        project.ext.lwjglNatives = 'natives-windows'
+        break
+    case OperatingSystem.MAC_OS:
+        project.ext.lwjglNatives = 'natives-macos'
+        // jvmargs = "-XstartOnFirstThread";
+        break
 }
 
 repositories {
@@ -44,4 +43,14 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
     implementation "org.joml:joml:${jomlVersion}"
+}
+
+task start(type: JavaExec, dependsOn: build) {
+    main = 'Main'
+    classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = ["-Djava.library.path=${System.getProperty('libPath', '../bin')}"]
+
+    if (OperatingSystem.current().isMacOsX()) {
+        jvmArgs += ['-XstartOnFirstThread', '-Djava.awt.headless=true']
+    }
 }

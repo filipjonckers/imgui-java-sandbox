@@ -14,6 +14,7 @@ public class Window {
 
     private static Window window = null;
     private long glfwWindow;
+    private ImGuiLayer imguiLayer;
 
     private Window() {
         this.width = 1024;
@@ -65,6 +66,9 @@ public class Window {
         glfwSwapInterval(1); // enable vsync - lock onto monitor refresh rate
         glfwShowWindow(glfwWindow);
         GL.createCapabilities(); // extremely important !
+
+        this.imguiLayer = new ImGuiLayer(glfwWindow);
+        this.imguiLayer.initImGui();
     }
 
     public void loop() {
@@ -83,6 +87,8 @@ public class Window {
             if (MouseListener.isMouseButtonDown(GLFW_MOUSE_BUTTON_LEFT)) {
                 System.out.println("Event: Left mouse button pressed");
             }
+
+            this.imguiLayer.update(FrameTimer.getFps());
 
             glfwSwapBuffers(glfwWindow);
 

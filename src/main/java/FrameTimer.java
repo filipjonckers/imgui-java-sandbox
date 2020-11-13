@@ -42,4 +42,11 @@ public class FrameTimer {
     public static float getFps() {
         return fps;
     }
+
+    /**
+     * @return Delta time between two frames.
+     */
+    public static float getDeltaTime() {
+        return frameDeltaTime;
+    }
 }

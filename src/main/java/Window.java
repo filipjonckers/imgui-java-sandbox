@@ -59,6 +59,7 @@ public class Window {
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyboardListener::keyboardCallback);
+        glfwSetWindowSizeCallback(glfwWindow, (window, width, height) -> Window.setSize(width, height));
 
         glfwMakeContextCurrent(glfwWindow);
         glfwSwapInterval(1); // enable vsync - lock onto monitor refresh rate
@@ -88,5 +89,26 @@ public class Window {
             FrameTimer.getMeasurement();
             System.out.println("FPS: " + FrameTimer.getFps());
         }
+    }
+
+    public static int getWidth() {
+        return get().width;
+    }
+
+    public static int getHeight() {
+        return get().height;
+    }
+
+    public static void setWidth(int width) {
+        get().width = width;
+    }
+
+    public static void setHeight(int height) {
+        get().height = height;
+    }
+
+    public static void setSize(int width, int height) {
+        Window.setWidth(width);
+        Window.setHeight(height);
     }
 }

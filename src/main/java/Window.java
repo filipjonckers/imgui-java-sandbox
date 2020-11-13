@@ -48,7 +48,7 @@ public class Window {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+        glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
 
         glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
         if (glfwWindow == NULL) {
@@ -58,6 +58,7 @@ public class Window {
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePositionCallback);
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
+        glfwSetKeyCallback(glfwWindow, KeyboardListener::keyboardCallback);
 
         glfwMakeContextCurrent(glfwWindow);
         glfwSwapInterval(1); // enable vsync
@@ -71,6 +72,15 @@ public class Window {
 
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
+
+            if (KeyboardListener.isKeyPressed(GLFW_KEY_SPACE)) {
+                System.out.println("Event: space pressed");
+            }
+
+            if (MouseListener.isMouseButtonDown(GLFW_MOUSE_BUTTON_LEFT)) {
+                System.out.println("Event: Left mouse button pressed");
+            }
+
             glfwSwapBuffers(glfwWindow);
         }
     }

@@ -49,7 +49,7 @@ public class MouseListener {
     }
 
     public static void mouseButtonCallback(long window, int button, int action, int mods) {
-        if (button < getInstance().mouseButtonPressed.length) {
+        if (button > getInstance().mouseButtonPressed.length) {
             // ignore if button number is outside our supported range
             return;
         }

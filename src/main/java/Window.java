@@ -61,12 +61,14 @@ public class Window {
         glfwSetKeyCallback(glfwWindow, KeyboardListener::keyboardCallback);
 
         glfwMakeContextCurrent(glfwWindow);
-        glfwSwapInterval(1); // enable vsync
+        glfwSwapInterval(1); // enable vsync - lock onto monitor refresh rate
         glfwShowWindow(glfwWindow);
         GL.createCapabilities(); // extremely important !
     }
 
     public void loop() {
+        FrameTimer.initFrameTimer();
+
         while (!glfwWindowShouldClose(glfwWindow)) {
             glfwPollEvents();
 
@@ -82,6 +84,9 @@ public class Window {
             }
 
             glfwSwapBuffers(glfwWindow);
+
+            FrameTimer.getMeasurement();
+            System.out.println("FPS: " + FrameTimer.getFps());
         }
     }
 }

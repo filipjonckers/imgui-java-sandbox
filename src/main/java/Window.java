@@ -55,6 +55,10 @@ public class Window {
             throw new IllegalStateException("Error: unable to create GLFW window");
         }
 
+        glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePositionCallback);
+        glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
+        glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
+
         glfwMakeContextCurrent(glfwWindow);
         glfwSwapInterval(1); // enable vsync
         glfwShowWindow(glfwWindow);

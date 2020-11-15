@@ -51,6 +51,9 @@ public class Window {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
+        glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+        glfwWindowHint(GLFW_FLOATING, GLFW_FALSE); // always on top
+        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
         if (Platform.get() == Platform.MACOSX) {
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -58,6 +61,9 @@ public class Window {
             glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
             glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_TRUE);
+            glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE); // use full resolution framebuffer on retina display
+            glfwWindowHintString(GLFW_COCOA_FRAME_NAME, "LWJGL-IMGUI Sandbox");
+            glfwWindowHint(GLFW_COCOA_GRAPHICS_SWITCHING, GLFW_TRUE); // support switching to integrated GPU (improved performance, higher power consumption
         }
 
         glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);

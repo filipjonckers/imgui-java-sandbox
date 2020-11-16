@@ -21,7 +21,6 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class WindowAlternative {
     private static WindowAlternative instance = null;
     private long window;
-    private String glslVersion = null;
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw(); // backend
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3(); // renderer
 
@@ -30,6 +29,7 @@ public class WindowAlternative {
     private static final String WINDOW_TITLE = "IMGUI JWGL Sandbox";
     private static final float[] WINDOW_BACKGROUND_RGBA = {0f, 0f, 0f, 1f};
     private static final int VSYNC = 1;
+    private static final String GL_VERSION = "#version 330";
 
     private final MapsWindow mapsWindow = new MapsWindow();
 
@@ -79,7 +79,7 @@ public class WindowAlternative {
         initImguiFonts(io);
 
         imGuiGlfw.init(window, true);
-        imGuiGl3.init(glslVersion);
+        imGuiGl3.init(GL_VERSION);
     }
 
     private void loop() {
@@ -130,7 +130,6 @@ public class WindowAlternative {
         glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
         glfwWindowHint(GLFW_FLOATING, GLFW_FALSE); // always on top
 
-        glslVersion = "#version 330";
         if (Platform.get() == Platform.MACOSX) {
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

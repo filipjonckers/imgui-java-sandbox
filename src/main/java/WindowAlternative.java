@@ -90,6 +90,8 @@ public class WindowAlternative {
             glClearColor(WINDOW_BACKGROUND_RGBA[0], WINDOW_BACKGROUND_RGBA[1], WINDOW_BACKGROUND_RGBA[2], WINDOW_BACKGROUND_RGBA[3]);
             glClear(GL_COLOR_BUFFER_BIT);
 
+            ImGui.getIO().setDeltaTime(FrameTimer.getDeltaTime());
+
             imGuiGlfw.newFrame();
             ImGui.newFrame();
 
@@ -108,7 +110,7 @@ public class WindowAlternative {
             glfwSwapBuffers(window);
 
             FrameTimer.getMeasurement();
-            System.out.println("FPS: " + FrameTimer.getFps());
+            System.out.println("FPS: " + FrameTimer.getFps() + " deltaTime: " + FrameTimer.getDeltaTime());
         }
     }
 

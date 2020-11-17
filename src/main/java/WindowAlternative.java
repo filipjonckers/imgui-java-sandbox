@@ -70,6 +70,7 @@ public class WindowAlternative {
 
     private void initImgui() {
         ImGui.createContext();
+        ImGui.styleColorsDark();
 
         final ImGuiIO io = ImGui.getIO();
         io.setIniFilename(null); // don't use ini file

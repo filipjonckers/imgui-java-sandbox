@@ -111,7 +111,7 @@ public class WindowAlternative {
             glfwSwapBuffers(window);
 
             FrameTimer.getMeasurement();
-            System.out.println("FPS: " + FrameTimer.getFps() + " deltaTime: " + FrameTimer.getDeltaTime());
+            //System.out.println("FPS: " + FrameTimer.getFps() + " deltaTime: " + FrameTimer.getDeltaTime());
         }
     }
 

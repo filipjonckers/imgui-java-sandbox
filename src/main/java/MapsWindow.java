@@ -1,18 +1,17 @@
 import imgui.ImColor;
 import imgui.ImGuiViewport;
-import imgui.ImVec4;
-import imgui.flag.ImGuiCol;
-import imgui.flag.ImGuiCond;
-import imgui.flag.ImGuiTabBarFlags;
-import imgui.flag.ImGuiTreeNodeFlags;
+import imgui.flag.*;
 import imgui.internal.ImGui;
 
 public class MapsWindow {
-    private final int WINDOW_WIDTH = 400;
-    private final int WINDOW_HEIGHT = 300;
-    private int[] b = {50};
-
-    private final String[] groups = {"ACC", "APP", "EBBR", "EBAW", "EBCI", "EBLG", "EBOS", "FIC"};
+    private final static int WINDOW_WIDTH = 400;
+    private final static int WINDOW_HEIGHT = 300;
+    private final static String MAP_GROUP_ENABLED = "#22682d";
+    private final static String BRIGHTNESS_FRAMEBG = "#333333";
+    private int[] brt1 = {80};
+    private int[] brt2 = {100};
+    private int[] brt3 = {70};
+    private int[] brt4 = {90};
 
     public enum MapGroup {
         ACC("ACC", true),
@@ -24,10 +23,10 @@ public class MapsWindow {
         EBOS("EBOS", false),
         FIC("FIC", true);
 
-        private String name;
+        private final String name;
         private boolean state;
 
-        private MapGroup(String name, boolean state) {
+        MapGroup(String name, boolean state) {
             this.name = name;
             this.state = state;
         }
@@ -42,7 +41,6 @@ public class MapsWindow {
         ImGui.setNextWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT, ImGuiCond.Once);
         ImGui.setNextWindowPos(mainViewport.getWorkPosX() + 10, mainViewport.getWorkPosY() + 10, ImGuiCond.Once);
 
-        //ImGui.begin("Maps", ImGuiWindowFlags.AlwaysAutoResize);
         ImGui.begin("Maps");
 
         if (ImGui.beginTabBar("Maps", ImGuiTabBarFlags.None)) {
@@ -69,34 +67,19 @@ public class MapsWindow {
     }
 
     private void loadMapsTab() {
-        ImGui.columns(6, "MapGroups1", false);
-        for (String group : groups) {
-            ImGui.pushStyleColor(ImGuiCol.Button, ImColor.rgbToColor("#FF0000"));
-            if(ImGui.button(group, -1, 0f)) {
-                System.out.println("pressed 1");
-            }
-            // same width - default height
-            ImGui.popStyleColor();
-            ImGui.nextColumn();
-        }
-        ImGui.columns(1);
-        ImGui.separator();
-        ImGui.spacing();
-
         ImGui.columns(6, "MapGroups2", false);
-        boolean popColorRequired = false;
+        boolean popColorRequired;
         for (MapGroup group : MapGroup.values()) {
-            if(group.state) {
-                ImGui.pushStyleColor(ImGuiCol.Button, ImColor.rgbToColor("#00DD00"));
+            if (group.state) {
+                ImGui.pushStyleColor(ImGuiCol.Button, ImColor.rgbToColor(MAP_GROUP_ENABLED));
                 popColorRequired = true;
             } else {
                 popColorRequired = false;
             }
-            if(ImGui.button(group.name, -1, 0f)) { // same width - default height
+            if (ImGui.button(group.name, -1, 0f)) { // same width - default height
                 group.state = !group.state;
-                System.out.println("pressed");
             }
-            if(popColorRequired) {
+            if (popColorRequired) {
                 ImGui.popStyleColor();
             }
             ImGui.nextColumn();
@@ -106,13 +89,15 @@ public class MapsWindow {
         ImGui.spacing();
 
 
-        ImGui.beginChild("MapSelection");
+        ImGui.beginChild("MapSelection", 0, 0, false, ImGuiWindowFlags.AlwaysVerticalScrollbar);
 
         boolean active;
         active = ImGui.collapsingHeader("GEO", ImGuiTreeNodeFlags.AllowItemOverlap);
         ImGui.sameLine(200);
         ImGui.setNextItemWidth(-20);
-        ImGui.sliderInt("", b, 60, 100);
+        ImGui.pushStyleColor(ImGuiCol.FrameBg, ImColor.rgbToColor(BRIGHTNESS_FRAMEBG));
+        ImGui.sliderInt("##brt1", brt1, 60, 100);
+        ImGui.popStyleColor();
         if (active) {
             ImGui.checkbox("Border", true);
             ImGui.checkbox("Coast", true);
@@ -122,7 +107,9 @@ public class MapsWindow {
         active = ImGui.collapsingHeader("AERODROMES", ImGuiTreeNodeFlags.AllowItemOverlap);
         ImGui.sameLine(200);
         ImGui.setNextItemWidth(-20);
-        ImGui.sliderInt("", b, 60, 100);
+        ImGui.pushStyleColor(ImGuiCol.FrameBg, ImColor.rgbToColor(BRIGHTNESS_FRAMEBG));
+        ImGui.sliderInt("##brt2", brt2, 60, 100);
+        ImGui.popStyleColor();
         if (active) {
             ImGui.checkbox("Major aerodromes", true);
             ImGui.checkbox("Small aerodromes", false);
@@ -133,7 +120,9 @@ public class MapsWindow {
         active = ImGui.collapsingHeader("NAV", ImGuiTreeNodeFlags.AllowItemOverlap);
         ImGui.sameLine(200);
         ImGui.setNextItemWidth(-20);
-        ImGui.sliderInt("", b, 60, 100);
+        ImGui.pushStyleColor(ImGuiCol.FrameBg, ImColor.rgbToColor(BRIGHTNESS_FRAMEBG));
+        ImGui.sliderInt("##brt3", brt3, 60, 100);
+        ImGui.popStyleColor();
         if (active) {
             ImGui.checkbox("VOR", true);
             ImGui.checkbox("Major points", true);
@@ -145,7 +134,9 @@ public class MapsWindow {
         active = ImGui.collapsingHeader("RUNWAY", ImGuiTreeNodeFlags.AllowItemOverlap);
         ImGui.sameLine(200);
         ImGui.setNextItemWidth(-20);
-        ImGui.sliderInt("", b, 60, 100);
+        ImGui.pushStyleColor(ImGuiCol.FrameBg, ImColor.rgbToColor(BRIGHTNESS_FRAMEBG));
+        ImGui.sliderInt("##brt4", brt4, 60, 100);
+        ImGui.popStyleColor();
         if (active) {
             ImGui.checkbox("EBBR RWY 25L/R centerlines", true);
             ImGui.checkbox("EBBR RWY 19 centerline", true);

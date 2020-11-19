@@ -18,8 +18,8 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-public class WindowAlternative {
-    private static WindowAlternative instance = null;
+public class MainWindow {
+    private static MainWindow instance = null;
     private long window;
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw(); // backend
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3(); // renderer
@@ -33,13 +33,13 @@ public class WindowAlternative {
 
     private final MapsWindow mapsWindow = new MapsWindow();
 
-    private WindowAlternative() {
+    private MainWindow() {
         // only local instance allowed
     }
 
-    public static WindowAlternative getInstance() {
+    public static MainWindow getInstance() {
         if (instance == null) {
-            instance = new WindowAlternative();
+            instance = new MainWindow();
         }
         return instance;
     }
@@ -111,7 +111,7 @@ public class WindowAlternative {
             glfwSwapBuffers(window);
 
             FrameTimer.getMeasurement();
-            //System.out.println("FPS: " + FrameTimer.getFps() + " deltaTime: " + FrameTimer.getDeltaTime());
+            System.out.println("FPS: " + FrameTimer.getFps() + " deltaTime: " + FrameTimer.getDeltaTime());
         }
     }
 

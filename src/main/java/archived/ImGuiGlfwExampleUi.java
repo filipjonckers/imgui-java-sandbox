@@ -1,3 +1,5 @@
+package archived;
+
 import imgui.ImColor;
 import imgui.ImGuiViewport;
 import imgui.flag.*;
@@ -103,7 +105,7 @@ final class ImGuiGlfwExampleUi {
 
             final int dockIdBottom = ImGui.dockBuilderSplitNode(dockspaceId, ImGuiDir.Down, .25f, null, null);
 
-            ImGui.dockBuilderDockWindow("Bottom Docked Window", dockIdBottom);
+            ImGui.dockBuilderDockWindow("Bottom Docked archived.Window", dockIdBottom);
             ImGui.dockBuilderSetNodeSize(dockIdBottom, 150f, 150f);
             ImGui.dockBuilderFinish(dockspaceId);
 
@@ -113,7 +115,7 @@ final class ImGuiGlfwExampleUi {
 
     private void showBottomDockedWindow() {
         if (showBottomDockedWindow.get()) {
-            ImGui.begin("Bottom Docked Window", showBottomDockedWindow, ImGuiWindowFlags.AlwaysAutoResize);
+            ImGui.begin("Bottom Docked archived.Window", showBottomDockedWindow, ImGuiWindowFlags.AlwaysAutoResize);
             ImGui.text("An example of how to create docked windows.");
             ImGui.end();
         }
@@ -131,9 +133,9 @@ final class ImGuiGlfwExampleUi {
     }
 
     private void showToggles() {
-        ImGui.checkbox("Show Demo Window", showDemoWindow);
-        ImGui.checkbox("Show Bottom Docked Window", showBottomDockedWindow);
-        if (ImGui.button("Reset Bottom Dock Window")) {
+        ImGui.checkbox("Show Demo archived.Window", showDemoWindow);
+        ImGui.checkbox("Show Bottom Docked archived.Window", showBottomDockedWindow);
+        if (ImGui.button("Reset Bottom Dock archived.Window")) {
             isBottomDockedWindowInit = false;
         }
     }

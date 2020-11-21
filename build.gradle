@@ -2,6 +2,7 @@ import org.gradle.internal.os.OperatingSystem
 
 plugins {
     id 'java'
+    id 'idea'
 }
 
 version '1.0'
@@ -30,6 +31,15 @@ switch (OperatingSystem.current()) {
 repositories {
     jcenter()
     mavenCentral()
+}
+
+sourceSets.main { output.setResourcesDir(java.outputDir) }
+
+
+idea {
+    module {
+        inheritOutputDirs = true
+    }
 }
 
 dependencies {

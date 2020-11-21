@@ -75,7 +75,7 @@ public class MainWindow {
         final ImGuiIO io = ImGui.getIO();
         io.setIniFilename(null); // don't use ini file
         io.addConfigFlags(ImGuiConfigFlags.NavEnableKeyboard);
-        io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable); // enable imgui windows outside main window
+//        io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable); // enable imgui windows outside main window
         io.setConfigViewportsNoTaskBarIcon(true);
         initImguiFonts(io);
 

@@ -5,7 +5,6 @@ import imgui.ImGuiIO;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
-import imgui.type.ImBoolean;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -31,7 +30,13 @@ public class MainWindow {
     private static final int VSYNC = 1;
     private static final String GL_VERSION = "#version 330";
 
+    private final boolean WINDOW_DEMO = false;
+    private final boolean WINDOW_DEBUG = false;
+    private final boolean WINDOW_STYLEEDITOR = false;
+
     private final MapsWindow mapsWindow = new MapsWindow();
+    private final ToolbarMain toolbarMain = new ToolbarMain();
+    private final ToolbarRadar toolbarRadar = new ToolbarRadar();
 
     private MainWindow() {
         // only local instance allowed
@@ -77,6 +82,7 @@ public class MainWindow {
         io.addConfigFlags(ImGuiConfigFlags.NavEnableKeyboard);
 //        io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable); // enable imgui windows outside main window
         io.setConfigViewportsNoTaskBarIcon(true);
+        io.setWantCaptureMouse(true);
         initImguiFonts(io);
 
         imGuiGlfw.init(window, true);
@@ -118,8 +124,12 @@ public class MainWindow {
     private void render() {
         // draw everything here !
         mapsWindow.render();
+        toolbarMain.render();
+        toolbarRadar.render();
 
-        imgui.internal.ImGui.showDemoWindow(new ImBoolean(true));
+        if (WINDOW_DEMO) ImGui.showDemoWindow();
+        if (WINDOW_DEBUG) ImGui.showMetricsWindow();
+        if (WINDOW_STYLEEDITOR) ImGui.showStyleEditor();
     }
 
     private void initGlfwWindowHints() {
@@ -144,6 +154,7 @@ public class MainWindow {
     }
 
     private void initImguiFonts(ImGuiIO io) {
+        io.setFontGlobalScale(1.2f);
         final ImFontAtlas fontAtlas = io.getFonts();
         final ImFontConfig fontConfig = new ImFontConfig();
         fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());

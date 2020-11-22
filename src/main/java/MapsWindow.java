@@ -39,7 +39,7 @@ public class MapsWindow {
     public void render() {
         final ImGuiViewport mainViewport = ImGui.getMainViewport();
         ImGui.setNextWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT, ImGuiCond.Once);
-        ImGui.setNextWindowPos(mainViewport.getWorkPosX() + 10, mainViewport.getWorkPosY() + 10, ImGuiCond.Once);
+        ImGui.setNextWindowPos(mainViewport.getWorkPosX() + 400, mainViewport.getWorkPosY() + 200, ImGuiCond.Once);
 
         ImGui.begin("Maps");
 

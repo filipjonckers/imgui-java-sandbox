@@ -154,14 +154,14 @@ public class MainWindow {
     }
 
     private void initImguiFonts(ImGuiIO io) {
-        io.setFontGlobalScale(1.2f);
+        io.setFontGlobalScale(1.0f);
         final ImFontAtlas fontAtlas = io.getFonts();
         final ImFontConfig fontConfig = new ImFontConfig();
         fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());
-        fontAtlas.addFontDefault();
-        fontConfig.setMergeMode(true);
+        //fontAtlas.addFontDefault();
+        fontConfig.setMergeMode(false);
         fontConfig.setPixelSnapH(true);
-        fontAtlas.addFontFromFileTTF("fonts/monaco.ttf", 12, fontConfig);
+        fontAtlas.addFontFromFileTTF("fonts/t2radar.ttf", 16, fontConfig);
         fontConfig.destroy();
     }
 

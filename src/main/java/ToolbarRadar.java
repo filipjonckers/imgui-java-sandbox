@@ -1,8 +1,8 @@
 import imgui.ImColor;
-import imgui.ImGuiStyle;
 import imgui.ImGuiViewport;
 import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiCond;
+import imgui.flag.ImGuiStyleVar;
 import imgui.flag.ImGuiWindowFlags;
 import imgui.internal.ImGui;
 import imgui.type.ImInt;
@@ -13,7 +13,7 @@ public class ToolbarRadar {
     private final String[] LEVELS;
 
     public ToolbarRadar() {
-        ArrayList<String> array = new ArrayList<String>();
+        ArrayList<String> array = new ArrayList<>();
         for (int i = 0; i < 901; i += 10) {
             array.add(String.format("F%03d", i));
         }
@@ -22,13 +22,12 @@ public class ToolbarRadar {
 
     public void render() {
         final ImGuiViewport mainViewport = ImGui.getMainViewport();
-        //ImGui.setNextWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT, ImGuiCond.Once);
         ImGui.setNextWindowPos(mainViewport.getWorkPosX(), mainViewport.getWorkPosY(), ImGuiCond.Once);
+        ImGui.pushStyleVar(ImGuiStyleVar.FramePadding, 5f, 5f);
 
-        ImGui.begin("Radar Toolbar", ImGuiWindowFlags.AlwaysAutoResize + ImGuiWindowFlags.NoDecoration);
+        ImGui.begin("##Radar Toolbar", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoResize);
 
-        ImGuiStyle style = ImGui.getStyle();
-        style.setFrameRounding(2f);
+        ImGui.getStyle().setFrameRounding(2f);
         ImGui.getStyle().setColor(ImGuiCol.Text, ImColor.rgbToColor(T2Colors.T2_STYLE_600));
         ImGui.getStyle().setColor(ImGuiCol.Button, ImColor.rgbToColor(T2Colors.T2_STYLE_200));
         ImGui.getStyle().setColor(ImGuiCol.ButtonHovered, ImColor.rgbToColor(T2Colors.T2_BLUE_200));
@@ -62,5 +61,6 @@ public class ToolbarRadar {
         ImGui.button("4");
 
         ImGui.end();
+        ImGui.popStyleVar();
     }
 }

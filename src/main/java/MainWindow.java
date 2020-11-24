@@ -30,7 +30,7 @@ public class MainWindow {
     private static final int VSYNC = 1;
     private static final String GL_VERSION = "#version 330";
 
-    private final boolean WINDOW_DEMO = false;
+    private final boolean WINDOW_DEMO = true;
     private final boolean WINDOW_DEBUG = false;
     private final boolean WINDOW_STYLEEDITOR = false;
 
@@ -159,9 +159,11 @@ public class MainWindow {
         final ImFontConfig fontConfig = new ImFontConfig();
         fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());
         //fontAtlas.addFontDefault();
-        fontConfig.setMergeMode(false);
+        fontAtlas.addFontFromFileTTF("fonts/unscii-16.ttf", 16, fontConfig);
+        fontConfig.setMergeMode(true);
         fontConfig.setPixelSnapH(true);
-        fontAtlas.addFontFromFileTTF("fonts/t2radar.ttf", 16, fontConfig);
+        short[] range = {(short) FontMaterialDesignIcons.MIN, (short)FontMaterialDesignIcons.MAX};
+        fontAtlas.addFontFromFileTTF("fonts/MaterialIcons-Regular.ttf", 18, fontConfig, range); // size must be bigger than the font
         fontConfig.destroy();
     }
 
